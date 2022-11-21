@@ -1,17 +1,11 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
- */
-
-import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
-import "./layout.css"
+import * as React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import { ETHMarketplaceContextProvider } from "/src/context/marketplaceContext";
+import Header from "./header";
+import "./layout.css";
 
 const Layout = ({ children }) => {
+  //const [web3Auth, setWeb3Auth] = React.useEffect(null);
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -21,6 +15,19 @@ const Layout = ({ children }) => {
       }
     }
   `)
+
+ /*  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const script = document.createElement("script");
+      script.src =
+        "https://unpkg.com/@web3auth/web3auth@latest/dist/web3auth.umd.min.js";
+      script.id = "web3auth";
+      document.body.appendChild(script);
+      script.onload = event => {
+        setWeb3Auth(true);
+      };
+    }
+  }, []); */
 
   return (
     <>
@@ -32,7 +39,9 @@ const Layout = ({ children }) => {
           padding: `var(--size-gutter)`,
         }}
       >
-        <main>{children}</main>
+        <ETHMarketplaceContextProvider>
+          <main>{children}</main>
+        </ETHMarketplaceContextProvider>
         <footer
           style={{
             marginTop: `var(--space-5)`,
