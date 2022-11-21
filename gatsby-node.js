@@ -9,32 +9,40 @@ const webpack = require("webpack");
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
 exports.createPages = async ({ actions }) => {
-  const { createPage } = actions
-  createPage({
-    path: "/using-dsg",
-    component: require.resolve("./src/templates/using-dsg.js"),
-    context: {},
-    defer: true,
-  })
+    const { createPage } = actions
+    createPage({
+        path: "/using-dsg",
+        component: require.resolve("./src/templates/using-dsg.js"),
+        context: {},
+        defer: true,
+    })
 }
 
 exports.onCreateWebpackConfig = ({ actions }) => {
     actions.setWebpackConfig({
         plugins: [
             new webpack.ProvidePlugin({
+                process: 'process/browser',
+            }),
+            new webpack.ProvidePlugin({
                 Buffer: [require.resolve("buffer/"), "Buffer"],
             }),
         ],
         resolve: {
             fallback: {
-                "crypto": false,
+                "crypto": require.resolve("crypto-browserify"),
                 "stream": require.resolve("stream-browserify"),
-                "assert": false,
+                "assert": require.resolve("assert"),
+                "http": require.resolve("stream-http"),
+                "https": require.resolve("https-browserify"),
                 "util": false,
-                "http": false,
-                "https": false,
-                "os": false
+                "os": require.resolve("os-browserify"),
+                "eval": false,
+                "url": require.resolve("url"),
             },
+            alias: {
+                process: "process/browser"
+            }
         },
     })
 }
