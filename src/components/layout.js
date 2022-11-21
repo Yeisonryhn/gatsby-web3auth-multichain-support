@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import { ETHMarketplaceContextProvider } from "/src/context/marketplaceContext";
+import { MarketplaceContextProvider } from "/src/context/marketplaceContext";
 import Header from "./header";
 import "./layout.css";
 
@@ -39,9 +39,9 @@ const Layout = ({ children }) => {
           padding: `var(--size-gutter)`,
         }}
       >
-        <ETHMarketplaceContextProvider>
+        <MarketplaceContextProvider>
           <main>{children}</main>
-        </ETHMarketplaceContextProvider>
+        </MarketplaceContextProvider>
         <footer
           style={{
             marginTop: `var(--space-5)`,

@@ -1,7 +1,8 @@
 import * as React from "react";
 import { ethers } from "ethers";
 import { useMoralis } from "react-moralis";
-import Web3Auth from "@web3auth/modal";
+import {Web3Auth} from "@web3auth/modal";
+import Moralis from "moralis";
 
 const defaultValue = {
   connect: () => { },
@@ -18,7 +19,7 @@ export const MarketplaceContextProvider = ({ children }) => {
   const [account, setAccount] = React.useState(null);
   let contract;
   let read_only_contract;
-
+  const RPC_URL = "https://polygon-rpc.com/";
   React.useEffect(() => {
     (async () => {
       if (!web3auth) {
@@ -43,7 +44,7 @@ export const MarketplaceContextProvider = ({ children }) => {
           console.error(error);
         }
       } else {
-       
+
       }
     })();
   }, [web3auth])
